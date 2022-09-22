@@ -5,89 +5,79 @@ package mover
 
 import (
 	"fmt"
-	"io/fs"
+
 	"os"
 	"path"
 )
 
-type OnesFile struct{
-	
-	FSold fs.FS //Корневая начальная директория
-	FSnew fs.FS // Корневая конечная директория
+type OnesFile struct {
+	FSold string //Корневая начальная директория
+	FSnew string // Корневая конечная директория
 
 	Name string
-	Size string
-	ID int
-
+	Size int64
+	ID   int
 }
 
-//Перенос файлов 
-func MoveFiles([]OnesFile, pathOutputFolder string) error {
+//Перенос файлов
+func MoveFiles(files []OnesFile, outputFolder string) error {
 
-	var err error 
-	err = nil
-	var oldPath string //
-	for file, _ := DirEntry {
-		//Получим старый полный путь
-		info := file.Info()
-		oldPath = path.Join(os.DirFS(path), DirEntry[i].Name())
-		// Проверим на наличие в директории директорий,
-		//Если такие есть - удалим их
-		if DirEntry[i].IsDir() == true {
+	FS := outputFolder
 
-			MoveFiles(oldPath, pathOutputFolder)
-			err = os.Remove(oldPath)
-			if err != nil {
-				return err
-			}
-			fmt.Printf("Folder %v has been remove\n", oldPath)
-		}
-		//
-		newPath = path.Join(pathOutputFolder, DirEntry[i].Name())
-		if DirEntry[i].IsDir() == false {
-			err = os.Rename(oldPath, newPath)
-			if err != nil {
+	for _, f := range files {
 
-				return err
-			}
+		f.FSnew = FS
 
-			fmt.Printf("File: %v has been rename %v\n", oldPath, newPath)
+		newPath := path.Join(f.FSnew, f.Name)
+		oldPath := path.Join(f.FSold, f.Name)
+
+		err := os.Rename(oldPath, newPath)
+		if err != nil {
+
+			return err
 		}
 
+		fmt.Printf("File: %v has been rename %v\n", oldPath, newPath)
 	}
-	return err
+	return nil
+
 }
 
+func GetListFiles(InputFolder string) ([]OnesFile, error) {
 
-func GetListFiles(pathInputFolder string) ([]OnesFile, error){
-	
-
-	FS := os.DirFS(pathInputFolder)
-	DirEntry, err := os.ReadDir(pathInputFolder)
+	//
+	FS := InputFolder
+	DirEntry, err := os.ReadDir(InputFolder)
 	if err != nil {
 		return nil, err
 	}
-
 
 	if len(DirEntry) == 0 {
 		fmt.Println("Current folder is empty")
 		return nil, nil
 	}
 
-    var file OnesFile
-	
+	var Files []OnesFile
+	for _, f := range DirEntry {
 
-	var Files = []OnesFile
-	for f, _ := range DirEntry{
-		
-		if f.IsDir != true{
-			file.Name = f.Name()
-			file.Size = f.Size()
+		//Извлечение иеформации о файле
+		info, err := f.Info()
+		if err != nil {
+			return nil, err
+		}
+		// Проверка на директорию
+		if info.IsDir() == false {
+			var file OnesFile
+			file.Name = info.Name()
+			file.Size = info.Size()
 			file.FSold = FS
-			
-			
+			file.ID = os.Getuid()
+			//Добавление в массив
 			Files = append(Files, file)
+		} else {
+			continue
 		}
 
 	}
+	return Files, nil
 }
