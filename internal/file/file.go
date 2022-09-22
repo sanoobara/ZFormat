@@ -1,16 +1,28 @@
+//Описательные структуры заголовка и информации по файлам 
+//
+//
 package file
 
 
 import (
-	""
+	
 )
 
-type File
-{
-	Name string
-	Size int
-	datecreate string
+
+type Header struct {
 	
+
+
 }
 
-func GetInfoFile()
+
+type OnesFile struct {
+	FSold string //Корневая начальная директория
+	FSnew string // Корневая конечная директория
+
+	Name string
+	Size int64
+	ID   int
+}
+
+

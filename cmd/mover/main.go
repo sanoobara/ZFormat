@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"rm/internal/config"
 	"rm/internal/mover"
 	"time"
 )
@@ -16,6 +17,13 @@ func main() {
 			fmt.Println(err)
 		}
 		time.Sleep(2 * time.Second)
+
+		_, er := config.ParsHeader("config\\zheader.json")
+
+		if er != nil {
+			fmt.Println(er)
+		}
+
 	}
 
 }

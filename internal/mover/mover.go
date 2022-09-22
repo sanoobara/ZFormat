@@ -5,22 +5,15 @@ package mover
 
 import (
 	"fmt"
-
+	"rm/internal/file"
 	"os"
 	"path"
 )
 
-type OnesFile struct {
-	FSold string //Корневая начальная директория
-	FSnew string // Корневая конечная директория
 
-	Name string
-	Size int64
-	ID   int
-}
 
 //Перенос файлов
-func MoveFiles(files []OnesFile, outputFolder string) error {
+func MoveFiles(files []file.OnesFile, outputFolder string) error {
 
 	FS := outputFolder
 
@@ -43,7 +36,7 @@ func MoveFiles(files []OnesFile, outputFolder string) error {
 
 }
 
-func GetListFiles(InputFolder string) ([]OnesFile, error) {
+func GetListFiles(InputFolder string) ([]file.OnesFile, error) {
 
 	//
 	FS := InputFolder
@@ -57,7 +50,7 @@ func GetListFiles(InputFolder string) ([]OnesFile, error) {
 		return nil, nil
 	}
 
-	var Files []OnesFile
+	var Files []file.OnesFile
 	for _, f := range DirEntry {
 
 		//Извлечение иеформации о файле
@@ -67,7 +60,7 @@ func GetListFiles(InputFolder string) ([]OnesFile, error) {
 		}
 		// Проверка на директорию
 		if info.IsDir() == false {
-			var file OnesFile
+			var file file.OnesFile
 			file.Name = info.Name()
 			file.Size = info.Size()
 			file.FSold = FS
