@@ -10,7 +10,8 @@ func main() {
 	
 	for {
 		
-		err := mover.MoveFiles("d:\\test1", "d:\\test2")
+		DirEntry, err := mover.GetListFiles("d:\\test1")
+		err := mover.MoveFiles(DirEntry, "d:\\test2")
 		if err != nil{
 			fmt.Println(err)
 		}
