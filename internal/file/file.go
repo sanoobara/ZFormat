@@ -10,12 +10,12 @@ import (
 
 
 type Header struct {
-	
+
 
 
 }
 
-
+//Описательная структура файла
 type OnesFile struct {
 	FSold string //Корневая начальная директория
 	FSnew string // Корневая конечная директория

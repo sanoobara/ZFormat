@@ -36,6 +36,8 @@ func MoveFiles(files []file.OnesFile, outputFolder string) error {
 
 }
 
+// Получение списка файлов в заданной директории
+// Игнорирование директорий 
 func GetListFiles(InputFolder string) ([]file.OnesFile, error) {
 
 	//
@@ -53,7 +55,7 @@ func GetListFiles(InputFolder string) ([]file.OnesFile, error) {
 	var Files []file.OnesFile
 	for _, f := range DirEntry {
 
-		//Извлечение иеформации о файле
+		//Извлечение информации о файле
 		info, err := f.Info()
 		if err != nil {
 			return nil, err
