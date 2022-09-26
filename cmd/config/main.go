@@ -28,6 +28,7 @@ func main() {
 	// 	fmt.Println(er)
 	// }
 
+	
 	_, er := config.BulkParser("config\\bulkconfig.json")
 
 	if er != nil {

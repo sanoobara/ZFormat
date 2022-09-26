@@ -1,6 +1,11 @@
 {
-    "inputFolder":"qweerttyu",
-    "outputFolder":"123468"
+    "copyPath":
+    {
+        "inputFolder":"qweerttyu",
+        "outputFolder":"123468"
 
+    }
+
+    
 
 }

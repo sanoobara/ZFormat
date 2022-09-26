@@ -55,7 +55,7 @@
         "NSS",
         "R14"
     ],
-    "service":
+    "Service":
     [
         "fName",
         "fExt",

@@ -54,7 +54,7 @@ func MainConfig(pathConfig string) (Config, error){
 
 type Bulk struct{
 	Zheader []string
-	service []string
+	Service []string
 }
 
 func BulkParser(pathJson string) (Bulk, error){
