@@ -5,6 +5,7 @@ import (
 	"rm/internal/config"
 	"rm/internal/mover"
 	"time"
+_ "github.com/spf13/viper"
 )
 
 func main() {
