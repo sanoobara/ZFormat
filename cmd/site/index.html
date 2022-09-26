@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<body>
+    <main>
+        <header>
+          <a class="logo" href="/">News Demo</a>
+          <form action="/search" method="GET">
+            <input autofocus class="search-input" value=""
+            placeholder="Enter a news topic" type="search" name="q">
+          </form>
+          <a href="https://github.com/freshman-tech/news" class="button
+            github-button">View on Github</a>
+        </header>
+      </main>
+      
+      <ul>
+
+        
+
+      </ul>
+      
+      <ul>
+          {{range .Zheader}}
+              
+                <li><b>{{ . }}</b></li>
+              
+          {{end}}
+          {{range .Service}}
+          
+            <li><b>{{ . }}</b></li>
+          
+            {{end}}
+
+
+      </ul>
+
+
+
+</body>
