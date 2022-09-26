@@ -1,18 +1,19 @@
 package main
 
-
 import (
 	"fmt"
 	"rm/internal/config"
 
-
-	
 )
 
 func main() {
 
+	_, er := config.ParsHeader("config\\zheader.json")
 
-		
+	if er != nil {
+		fmt.Println(er)
+	}
+
 
 	// _, er := config.ParsHeader("config\\zheader.json")
 
@@ -34,7 +35,6 @@ func main() {
 	if er != nil {
 		fmt.Println(er)
 	}
-
 
 
 }
