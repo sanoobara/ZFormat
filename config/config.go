@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	
 	"strconv"
+	"rm/config/cleanenv"
 )
 //Структура для парсинга основного конфигурационного файла
 type Config struct {
@@ -13,37 +13,23 @@ type Config struct {
 	OutputFolder string
 }
 
-
-type Config struct{
-
-	InputFolder string 
-	OutputFolder string
-}
-
-//Парсер заголовка 
-func ParsHeader(pathJson string) (map[string]string, error) {
-	
-
 //Локатион нужный полей в звголовке
 type Location struct{
 	startByte int
 	stopByte int
 }
 
+// type head struct {
+// 	Name      string
+// 	Value     string
+// 	Descr     string
+// 	StartByte string
+// 	StopByte  string
+// }
 
-//
-type head struct {
-	Name      string
-	Value     string
-	Descr     string
-	StartByte string
-	StopByte  string
-}
-
-type Header struct {
-	Items []head
-}
-
+// type Header struct {
+// 	Items []head
+// }
 // 
 func ParsLocation(pathJson string) (map[string]Location, error) {
 	var header Header
@@ -80,41 +66,7 @@ func ParsLocation(pathJson string) (map[string]Location, error) {
 	return maps, nil
 }
 
-
 //Парсер заголовка
-func ParsHeader(pathJson string) (Header, error) {
-	var header Header
-	file, err := os.ReadFile(pathJson)
-	if err != nil {
-		return header, err
-	}
-
-	err = json.Unmarshal(file, &header)
-	if err != nil {
-		return header, err
-	}
-
-	var maps = make(map[string]Location)
-
-	for _, item := range header.Items{
-		start, err:=strconv.Atoi(item.StartByte)
-		if err!=nil{
-			fmt.Println(err)
-		}
-		stop, err:= strconv.Atoi(item.StopByte)
-		if err!=nil{
-			fmt.Println(err)
-		}
-
-		l:=  Location{start,stop }
-		maps[item.Name] = l
-	}
-	fmt.Println(maps["OPR"].startByte)
-	
-
-
-	return header, nil 
-}
 
 
 func MainConfig(pathConfig string) (Config, error){
@@ -133,8 +85,6 @@ func MainConfig(pathConfig string) (Config, error){
 	return conf, nil 
 
 }
-
-
 
 type Bulk struct{
 	Zheader []string
@@ -178,4 +128,38 @@ func MainConfig(pathConfig string) (Config, error) {
 
 	return conf, nil
 
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+type (
+
+		ConfigParser struct {
+			type Items []struct {
+				Name      string
+				Value     string
+				Descr     string
+				StartByte string
+				StopByte  string
+
+			}
+		}
+
+)
+func parseJSON(r io.Reader, str interface{}) error {
+	return json.NewDecoder(r).Decode(str)
+	
+func NewConfPars()(*ConfigParser, error) {
+	cfg :=&ConfigParser{}
+
+	err:= cleanenv.ReadConfig("./zheader.json", cfg)
+	if err != nil{
+		return nil, fmt.Errorf("config error: %w", err)
+	}
+	
+	
+	if err != nil {
+		return nil, err
+	}
+
+	return cfg, nil	
+	
 }

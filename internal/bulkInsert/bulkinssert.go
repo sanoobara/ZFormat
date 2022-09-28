@@ -1,6 +1,6 @@
 package bulkinsert
 
 
-type insert_type struct{
-	
+type Insert_type struct{
+	Intf string
 }
