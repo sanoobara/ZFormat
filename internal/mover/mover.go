@@ -38,7 +38,7 @@ func MoveFiles(files []file.OnesFile, outputFolder string) error {
 
 // Получение списка файлов в заданной директории
 // Игнорирование директорий 
-func GetListFiles(InputFolder string) ([]file.OnesFile, error) {
+func GetLisgo tFiles(InputFolder string) ([]file.OnesFile, error) {
 
 	//
 	FS := InputFolder
